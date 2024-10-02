@@ -19,13 +19,13 @@
                         {{ isset($tasksByStatus['To Do']) ? count($tasksByStatus['To Do']) : 0 }}
                     </div>
                 </div>
-                <div><a href="#"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
             </div>
 
             @if (isset($tasksByStatus['To Do']) && count($tasksByStatus['To Do']) > 0)
                 <div class="border border-dotted border-[#AEAEAE] p-3 rounded-[9px]">
                     @foreach ($tasksByStatus['To Do'] as $toDoTask)
-                        <div class="p-4 mb-10 bg-white rounded-[9px] shadow-md">
+                        <div class="p-4 mb-5 bg-white rounded-[9px] shadow-md">
                             <div class="mb-3 font-semibold text-[16px] text-[#000000]">{{ $toDoTask->title }}</div>
                             <div class="border-b border-solid border-[#E3E6EA] mb-[10px]">
                                 <div class="mb-[10px] font-normal text-[#2E3033] text-[16px]">{{ $toDoTask->description }}
@@ -75,13 +75,13 @@
                         {{ isset($tasksByStatus['Work In Progress']) ? count($tasksByStatus['Work In Progress']) : 0 }}
                     </div>
                 </div>
-                <div><a href="#"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
             </div>
 
             @if (isset($tasksByStatus['Work In Progress']) && count($tasksByStatus['Work In Progress']) > 0)
                 <div class="border border-dotted border-[#AEAEAE] p-3 rounded-[9px]">
                     @foreach ($tasksByStatus['Work In Progress'] as $workTask)
-                        <div class="p-4 mb-10 bg-white rounded-[9px] shadow-md">
+                        <div class="p-4 mb-5 bg-white rounded-[9px] shadow-md">
                             <div class="mb-3 font-semibold text-[16px] text-[#000000]">{{ $workTask->title }}</div>
                             <div class="border-b border-solid border-[#E3E6EA] mb-[10px]">
                                 <div class="mb-[10px] font-normal text-[#2E3033] text-[16px]">{{ $workTask->description }}
@@ -131,13 +131,13 @@
                         {{ isset($tasksByStatus['Under Review']) ? count($tasksByStatus['Under Review']) : 0 }}
                     </div>
                 </div>
-                <div><a href="#"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
             </div>
 
             @if (isset($tasksByStatus['Under Review']) && count($tasksByStatus['Under Review']) > 0)
                 <div class="border border-dotted border-[#AEAEAE] p-3 rounded-[9px]">
                     @foreach ($tasksByStatus['Under Review'] as $underReview)
-                        <div class="p-4 mb-10 bg-white rounded-[9px] shadow-md">
+                        <div class="p-4 mb-5 bg-white rounded-[9px] shadow-md">
                             <div class="mb-3 font-semibold text-[16px] text-[#000000]">{{ $underReview->title }}</div>
                             <div class="border-b border-solid border-[#E3E6EA] mb-[10px]">
                                 <div class="mb-[10px] font-normal text-[#2E3033] text-[16px]">
@@ -187,13 +187,13 @@
                         {{ isset($tasksByStatus['Complete']) ? count($tasksByStatus['Complete']) : 0 }}
                     </div>
                 </div>
-                <div><a href="#"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
             </div>
 
             @if (isset($tasksByStatus['Complete']) && count($tasksByStatus['Complete']) > 0)
                 <div class="border border-dotted border-[#AEAEAE] p-3 rounded-[9px]">
                     @foreach ($tasksByStatus['Complete'] as $completeTask)
-                        <div class="p-4 mb-10 bg-white rounded-[9px] shadow-md">
+                        <div class="p-4 mb-5 bg-white rounded-[9px] shadow-md">
                             <div class="mb-3 font-semibold text-[16px] text-[#000000]">{{ $completeTask->title }}</div>
                             <div class="border-b border-solid border-[#E3E6EA] mb-[10px]">
                                 <div class="mb-[10px] font-normal text-[#2E3033] text-[16px]">

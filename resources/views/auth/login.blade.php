@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="w-1/3 mt-[50px] mx-auto">
-        <form action="{{ route('login') }}" method="POST" class="bg-white p-5 rounded shadow">
+        <form action="{{ route('login') }}" method="POST" class="p-5 bg-white rounded shadow">
             @csrf
 
             <div class="mb-4">
@@ -14,7 +14,7 @@
                     class="border rounded w-full p-2 @error('email') border-red-500 @enderror" value="{{ old('email') }}">
 
                 @error('email')
-                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                    <span class="mt-1 text-sm text-red-500">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -24,11 +24,11 @@
                     class="border rounded w-full p-2 @error('password') border-red-500 @enderror">
 
                 @error('password')
-                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                    <span class="mt-1 text-sm text-red-500">{{ $message }}</span>
                 @enderror
             </div>
 
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded">Login</button>
+            <button type="submit" class="p-2 text-white bg-blue-500 rounded">Login</button>
         </form>
     </div>
 

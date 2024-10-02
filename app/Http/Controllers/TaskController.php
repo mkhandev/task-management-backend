@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -15,13 +15,10 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with('users')
+            ->orderBy('created_at', 'desc')
             ->paginate(1000);
 
         $tasksByStatus = $tasks->groupBy('status');
-
-        // echo "<pre>";
-        // print_r($tasksByStatus);
-        // exit;
 
         return view('task.index', compact('tasksByStatus', 'tasks'));
     }
@@ -42,14 +39,15 @@ class TaskController extends Controller
     {
 
         $task = Task::create([
+            'by_user_id' => auth()->id(),
             'title' => $request->title,
             'description' => $request->description,
             'status' => $request->status,
             'due_date' => $request->due_date,
         ]);
 
-        if (isset($request->user_ids)) {
-            $task->users()->attach($request->user_ids, [
+        if (isset($request->user_id)) {
+            $task->users()->attach($request->user_id, [
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -71,6 +69,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        Gate::authorize("edit", $task);
+
         $users = User::all();
         return view('task.edit', compact('task', 'users'));
     }
@@ -80,6 +80,8 @@ class TaskController extends Controller
      */
     public function update(StoreTaskRequest $request, Task $task)
     {
+        Gate::authorize("update", $task);
+
         // Update the task
         $task->update([
             'title' => $request->title,
@@ -88,7 +90,7 @@ class TaskController extends Controller
             'due_date' => $request->due_date,
         ]);
 
-        $task->users()->sync($request->user_ids);
+        $task->users()->sync($request->user_id);
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully!');
     }
@@ -98,6 +100,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        Gate::authorize("delete", $task);
+
         $task->delete();
 
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
