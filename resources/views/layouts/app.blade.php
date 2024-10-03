@@ -62,11 +62,11 @@
         </div>
     </div>
 
-    <div class="flex">
+    <div class="flex min-h-[100vh]">
 
         @include('layouts.partial.sidebar')
 
-        <main class="flex-1 h-screen p-4">
+        <main class="flex-1 p-4">
 
             @include('layouts.partial.flash')
 

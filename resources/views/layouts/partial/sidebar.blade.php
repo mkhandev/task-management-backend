@@ -3,7 +3,7 @@
 @endphp
 
 <aside id="sidebar"
-    class="h-screen  fixed top-[78px] md:relative md:top-0 z-30 w-64 transition-transform transform bg-white shadow-md md:translate-x-0 sidebar-hidden md:block">
+    class="z-30 w-64 transition-transform transform bg-white shadow-md  md:relative md:top-0 md:translate-x-0 sidebar-hidden md:block">
     <div class="p-4">
         <nav>
             <ul>
