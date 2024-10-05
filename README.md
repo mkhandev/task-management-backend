@@ -54,7 +54,7 @@ Email: demo@example.com
 Password: password
 ```
 
-##Note
+## Note
 1. Authorization policy adeed for edit/delete task. User can edit and delete own tasks.
 2. Add postamn collection json file (Task Manager.postman_collection.json) in root directory for API calls.
 3. User Registration only available from front end application
