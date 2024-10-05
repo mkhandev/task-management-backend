@@ -1,6 +1,6 @@
 # Laravel Framework 11.25.0
 
-## Preoject settup
+## Preoject setup
 
 ### Install composer
 ```sh
@@ -35,7 +35,7 @@ php artisan db:seed
 php artisan passport:keys
 ```
 
-## Create the Personal Access Client
+## Create the personal access client
 ```sh
 php artisan passport:client --personal
 ```
