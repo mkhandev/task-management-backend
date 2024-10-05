@@ -9,9 +9,9 @@
 
 @section('content')
 
-    <div class="flex border border-solid border-[#D2D6DC]">
+    <div class="flex">
         <form method="GET" action="{{ route('tasks.index') }}">
-            <div class="flex w-full gap-3 p-4 rounded">
+            <div class="border border-solid border-[#D2D6DC] flex gap-3 p-4 w-full rounded">
                 <input type="text" name="title" value="{{ $filters['title'] ?? '' }}" class="p-2 rounded focus:outline-none"
                     placeholder="Task Name" />
 
