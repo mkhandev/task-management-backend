@@ -22,12 +22,21 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_ids' => 'required|array',
-            'user_ids.*' => 'exists:users,id',
+            'user_id' => 'required|array',
+            'user_id.*' => 'exists:users,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'required|string|in:To Do,Work In Progress,Under Review,Complete',
-            'due_date' => 'required|date',
+            'due_date' => 'required|date_format:Y-m-d',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'Please select at least one user.',
+            'user_id.*.exists' => 'One or more selected users do not exist.',
+            'status.in' => 'The status must be one of the following: To Do, Work In Progress, Under Review, Complete',
         ];
     }
 }

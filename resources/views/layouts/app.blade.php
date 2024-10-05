@@ -13,6 +13,7 @@
         @media only screen and (max-width: 768px) {
             .sidebar-hidden {
                 transform: translateX(-100%) !important;
+                display: none
             }
 
         }
@@ -42,7 +43,7 @@
 </head>
 
 <body class="bg-[#fafafb]">
-    <div class="fixed w-full bg-white border-b border-gray-200 border-solid md:relative">
+    <div class="w-full bg-white border-b border-gray-200 border-solid ">
 
         <div class="container mx-auto">
             <div class="flex items-center justify-between p-4">
@@ -62,11 +63,11 @@
         </div>
     </div>
 
-    <div class="flex">
+    <div class="flex min-h-[100vh]">
 
         @include('layouts.partial.sidebar')
 
-        <main class="flex-1 h-screen p-4">
+        <main class="flex-1 p-4">
 
             @include('layouts.partial.flash')
 

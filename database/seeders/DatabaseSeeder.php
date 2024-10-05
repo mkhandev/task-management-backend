@@ -24,13 +24,19 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $users = User::factory()->count(3)->create();
-        $tasks = Task::factory()->count(5)->create();
+        $users = User::factory()->count(2)->create();
+        $tasks = Task::factory()->count(5)->create([
+            'by_user_id' => function () use ($users) {
+                return $users->random()->id;
+            }
+        ]);
 
         //Populate task_user table using TaskUser model
         $tasks->each(function ($task) use ($users) {
-            // Attach between 1 to 3 random users to each task via TaskUser model
-            $users->random(rand(1, 3))->each(function ($user) use ($task) {
+            $availableUserCount = $users->count();
+            $randomUserCount = rand(1, min(3, $availableUserCount));
+
+            $users->random($randomUserCount)->each(function ($user) use ($task) {
                 TaskUser::create([
                     'task_id' => $task->id,
                     'user_id' => $user->id,

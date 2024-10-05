@@ -4,6 +4,7 @@
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style type="text/css">
     .border-red{
         border: 1px solid red;
@@ -19,14 +20,14 @@
 @endpush
 
 @section('content')
-    <h1 class="font-600 text-[28px] py-5 border-b border-solid border-[#D2D6DC] mb-5 text-[#161E2E]">Edit Task</h1>
+    <h1 class="font-semibold text-[24px] py-5 border-b border-solid border-[#D2D6DC] mb-5 text-[#161E2E]">Edit Task</h1>
     <form action="{{ route('tasks.update', $task->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         <div class="mb-4">
-            <label for="status" class="block font-500 text-[#001F3E] text-[16px] pb-1">Assign To</label>
-            <select name="user_ids[]" id="user_ids" multiple class="block w-full ">
+            <label for="user_id" class="block font-500 text-[#001F3E] text-[16px] pb-1">Assign To</label>
+            <select name="user_id[]" id="user_id" multiple class="block w-full ">
                 <option value="">Select users</option>
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}"
@@ -35,7 +36,7 @@
                     </option>
                 @endforeach
             </select>
-            @error('status')
+            @error('user_id')
                 <div class="mt-1 text-sm text-red-500">{{ $message }}</div>
             @enderror
         </div>
@@ -78,7 +79,7 @@
 
         <div class="mb-4">
             <label for="due_date" class="block font-500 text-[#001F3E] text-[16px] pb-1">Due Date</label>
-            <input type="date" name="due_date" id="due_date"
+            <input type="text" name="due_date" id="due_date" autocomplete="off"
                 class="border rounded w-full p-2 focus:outline-none @error('due_date',) border-red-500 @enderror"
                 value="{{ old('due_date', $task->due_date) }}">
             @error('due_date')
@@ -91,24 +92,28 @@
 @endsection
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             // Initialize Select2
-            $('#user_ids').select2({
+            $('#user_id').select2({
                 placeholder: "Select User",
                 allowClear: true
             });
 
             // Check for validation errors on page load
-            @error('user_ids')
-                $('#user_ids').next('.select2-container').addClass('border-red');
+            @error('user_id')
+                $('#user_id').next('.select2-container').addClass('border-red');
             @enderror
 
             // Optional: If you want to remove the error class on change
-            $('#user_ids').on('change', function() {
+            $('#user_id').on('change', function() {
                 $(this).next('.select2-container').removeClass('border-red');
+            });
+
+            $("#due_date").datepicker({
+                dateFormat: "yy-mm-dd"
             });
         });
     </script>
