@@ -14,7 +14,7 @@
 composer install
 ```
 
-### Add a .env file, You can copy file from .env.example and generate file .env file, then update environment variables
+### Add a .env file, You can copy file from .env.example and generate file .env , then update environment variables
 ```sh
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -28,6 +28,9 @@ DB_PASSWORD=admin
 ```sh
 php artisan migrate:refresh
 ```
+
+### Generate user and some demo data
+php artisan db:seed
 
 ### Passport configure for deploying Passport
 ```sh
