@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
@@ -24,15 +25,20 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
+        $taskWithUsers = $task->load('users');
+
+        $taskWithUsers->users = $task->users->map(function ($user) {
+            unset($user->pivot);
+            return $user;
+        });
+
         $response = [
             'success' => true,
             'message' => "Task info",
-            'data' => $task,
+            'data' => $taskWithUsers
         ];
 
         return response()->json($response);
-
-        return response()->json($task);
     }
 
     public function store(StoreTaskRequest $request)
@@ -66,7 +72,7 @@ class TaskController extends Controller
         if (!Gate::allows('update', $task)) {
             return response()->json([
                 'success' => false,
-                'message' => 'You are not allowed to update this task'
+                'message' => 'You are not allowed to update this task',
             ], 403);
         }
 
@@ -96,7 +102,7 @@ class TaskController extends Controller
         if (!Gate::allows('delete', $task)) {
             return response()->json([
                 'success' => false,
-                'message' => 'You are not allowed to delete this task'
+                'message' => 'You are not allowed to delete this task',
             ], 403);
         }
 
@@ -105,6 +111,19 @@ class TaskController extends Controller
         $response = [
             'success' => true,
             'message' => "Task deleted successfully",
+        ];
+
+        return response()->json($response);
+    }
+
+    public function getUsers()
+    {
+        $users = User::orderBy('name', 'asc')->get();
+
+        $response = [
+            'success' => true,
+            'message' => "User List",
+            'data' => $users,
         ];
 
         return response()->json($response);

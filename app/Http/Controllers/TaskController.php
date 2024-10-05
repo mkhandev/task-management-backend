@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
@@ -12,15 +13,23 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::with('users')
+        $filters = $request->only([
+            'title', 'user_id', 'due_date',
+        ]);
+
+
+        $query = Task::with('users')
+            ->filter($filters)
             ->orderBy('created_at', 'desc')
-            ->paginate(1000);
+            ->get();
 
-        $tasksByStatus = $tasks->groupBy('status');
+        $tasksByStatus = $query->groupBy('status');
 
-        return view('task.index', compact('tasksByStatus', 'tasks'));
+        $users = User::all();
+
+        return view('task.index', compact('tasksByStatus', 'users', 'filters'));
     }
 
     /**
@@ -69,7 +78,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        Gate::authorize("edit", $task);
+        //Gate::authorize("edit", $task);
 
         $users = User::all();
         return view('task.edit', compact('task', 'users'));

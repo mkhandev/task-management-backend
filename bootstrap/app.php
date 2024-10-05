@@ -15,7 +15,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+
+        $middleware->validateCsrfTokens(except: [
+            '/login',
+            '/logout',
+            '/api/login',
+            '/api/register',
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {

@@ -12,4 +12,5 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('tasks', TaskController::class);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/users', [TaskController::class, 'getUsers']);
 });

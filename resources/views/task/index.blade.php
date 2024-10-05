@@ -4,9 +4,35 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @endpush
 
 @section('content')
+
+    <div class="flex">
+        <form method="GET" action="{{ route('tasks.index') }}">
+            <div class="border border-solid border-[#D2D6DC] flex gap-3 p-4 w-full rounded">
+                <input type="text" name="title" value="{{ $filters['title'] ?? '' }}" class="p-2 rounded focus:outline-none"
+                    placeholder="Task Name" />
+
+                <select name="user_id" id="user_id" class="p-2 bg-white text-[#a6a4a4] focus:outline-none rounded">
+                    <option value="">Assign User</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}"  {{ isset($filters['user_id']) && $user->id == $filters['user_id'] ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <input type="text" name="due_date" id="due_date" value="{{ $filters['due_date'] ?? '' }}" autocomplete="off" placeholder="Due Date"
+                    class="w-full p-2 border rounded focus:outline-none" value="{{ old('due_date') }}">
+
+                <input type="submit" name="submit" value="Search"
+                    class="bg-[#42ad7e] text-[#FFF] text-[16px] px-3 py-2 rounded" />
+            </div>
+        </form>
+    </div>
+
     <h1 class="font-semibold text-[28px] py-5 border-b border-solid border-[#D2D6DC] mb-5 text-[#161E2E]">Task List</h1>
 
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -19,7 +45,8 @@
                         {{ isset($tasksByStatus['To Do']) ? count($tasksByStatus['To Do']) : 0 }}
                     </div>
                 </div>
-                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a>
+                </div>
             </div>
 
             @if (isset($tasksByStatus['To Do']) && count($tasksByStatus['To Do']) > 0)
@@ -75,7 +102,8 @@
                         {{ isset($tasksByStatus['Work In Progress']) ? count($tasksByStatus['Work In Progress']) : 0 }}
                     </div>
                 </div>
-                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a>
+                </div>
             </div>
 
             @if (isset($tasksByStatus['Work In Progress']) && count($tasksByStatus['Work In Progress']) > 0)
@@ -131,7 +159,8 @@
                         {{ isset($tasksByStatus['Under Review']) ? count($tasksByStatus['Under Review']) : 0 }}
                     </div>
                 </div>
-                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a>
+                </div>
             </div>
 
             @if (isset($tasksByStatus['Under Review']) && count($tasksByStatus['Under Review']) > 0)
@@ -187,7 +216,8 @@
                         {{ isset($tasksByStatus['Complete']) ? count($tasksByStatus['Complete']) : 0 }}
                     </div>
                 </div>
-                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]" src="{{ asset('images/plus.png') }}"></a></div>
+                <div><a href="{{ route('tasks.create') }}"><img class="w-[11px]"
+                            src="{{ asset('images/plus.png') }}"></a></div>
             </div>
 
             @if (isset($tasksByStatus['Complete']) && count($tasksByStatus['Complete']) > 0)
@@ -241,6 +271,7 @@
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.optionsButton').click(function(event) {
@@ -279,6 +310,12 @@
                         form.submit(); // Submit the form if confirmed
                     }
                 });
+            });
+        });
+
+        $(document).ready(function() {
+            $("#due_date").datepicker({
+                dateFormat: "yy-mm-dd"
             });
         });
     </script>
