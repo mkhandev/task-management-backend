@@ -59,4 +59,4 @@ Email: demo@example.com
 Password: password
 ```
 
-## Youser Registration only available from front end
+## Note: User Registration only available from front end application
