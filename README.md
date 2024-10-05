@@ -27,7 +27,7 @@ DB_PASSWORD=admin
 php artisan migrate:refresh
 ```
 
-### Generate user and some demo data. 
+### Generate user and some demo data.
 php artisan db:seed
 
 ### Passport configure for deploying Passport
