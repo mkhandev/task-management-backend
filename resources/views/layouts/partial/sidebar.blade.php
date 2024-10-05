@@ -3,7 +3,7 @@
 @endphp
 
 <aside id="sidebar"
-    class="z-30 w-64 transition-transform transform bg-white shadow-md  md:relative md:top-0 md:translate-x-0 sidebar-hidden md:block">
+    class="fixed top-[0] h-[100%] md:h-[initial] z-30 w-64 transition-transform transform bg-white shadow-md md:relative md:top-0 md:translate-x-0 sidebar-hidden md:block">
     <div class="p-4">
         <nav>
             <ul>
@@ -20,11 +20,6 @@
                     </a>
                 </li>
                 <li>
-                    {{-- <a href="{{ route('tasks.index') }}" class="flex gap-1 p-2 text-[16px] hover:bg-[#f3f4f6]  text-[#090E18] font-normal">
-                        <img src="{{ asset('images/turn-off.png') }}" class="w-[25px]">
-                        Logout
-                    </a> --}}
-
                     <form action="{{ route('logout') }}" method="POST" class="flex gap-1 items-center w-full hover:bg-[#f3f4f6]">
                         @csrf
                         <img src="{{ asset('images/turn-off.png') }}" class="w-[25px] h-[25px] ml-[8px]">

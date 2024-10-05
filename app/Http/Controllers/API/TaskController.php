@@ -6,13 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::with('users')->orderBy('created_at', 'desc')->get()->groupBy('status');
+        $filters = $request->only([
+            'title', 'user_id', 'due_date',
+        ]);
+
+        $query = Task::with('users')
+            ->filter($filters)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $tasks = $query->groupBy('status');
 
         $response = [
             'success' => true,

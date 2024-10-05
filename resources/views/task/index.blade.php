@@ -9,13 +9,13 @@
 
 @section('content')
 
-    <div class="flex">
+    <div class="">
         <form method="GET" action="{{ route('tasks.index') }}">
-            <div class="border border-solid border-[#D2D6DC] flex gap-3 p-4 w-full rounded">
-                <input type="text" name="title" value="{{ $filters['title'] ?? '' }}" class="p-2 rounded focus:outline-none"
+            <div class="border border-solid border-[#D2D6DC] flex flex-col md:flex-row gap-3 p-4 w-full rounded">
+                <input type="text" name="title" value="{{ $filters['title'] ?? '' }}" class="p-2 rounded w-full md:max-w-[160px] focus:outline-none"
                     placeholder="Task Name" />
 
-                <select name="user_id" id="user_id" class="p-2 bg-white text-[#a6a4a4] focus:outline-none rounded">
+                <select name="user_id" id="user_id" class="p-2 bg-white text-[#a6a4a4] w-full md:max-w-[160px] focus:outline-none rounded">
                     <option value="">Assign User</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}"  {{ isset($filters['user_id']) && $user->id == $filters['user_id'] ? 'selected' : '' }}>
@@ -25,7 +25,7 @@
                 </select>
 
                 <input type="text" name="due_date" id="due_date" value="{{ $filters['due_date'] ?? '' }}" autocomplete="off" placeholder="Due Date"
-                    class="w-full p-2 border rounded focus:outline-none" value="{{ old('due_date') }}">
+                    class="w-full md:max-w-[160px] p-2 border rounded focus:outline-none" value="{{ old('due_date') }}">
 
                 <input type="submit" name="submit" value="Search"
                     class="bg-[#42ad7e] text-[#FFF] text-[16px] px-3 py-2 rounded" />
